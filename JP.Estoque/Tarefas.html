@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lista de Tarefas</title>
+  <style>
+    .completed {
+      color: green;
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lista de Tarefas</h1>
+  
+  <form id="taskForm">
+    <ul id="taskList">
+      <li>
+        <input type="checkbox" name="task" value="1"> Análise de requisitos
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="2"> Criação do layout da interface de usuário
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="3"> Implementação da autenticação de usuário
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="4"> Criação da estrutura do banco de dados
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="5"> Implementação do cadastro de produtos
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="6"> Implementação da listagem de produtos
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="7"> Desenvolvimento da atualização de informações do produto
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="8"> Implementação da remoção de produtos
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="9"> Criação do controle de estoque
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="10"> Desenvolvimento dos pedidos
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="11"> Implementação dos relatórios
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="12"> Adição de gráficos e visualizações
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="13"> Testes e depuração
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="14"> Polimento e refinamento
+      </li>
+      <li>
+        <input type="checkbox" name="task" value="15"> Implantação e entrega
+      </li>
+    </ul>
+    <button type="submit">Salvar</button>
+  </form>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Carregar tarefas concluídas do armazenamento local
+      var completedTasks = localStorage.getItem('completedTasks');
+      if (completedTasks) {
+        completedTasks = completedTasks.split(',');
+        completedTasks.forEach(function(taskId) {
+          var checkbox = document.querySelector('input[value="' + taskId + '"]');
+          if (checkbox) {
+            checkbox.checked = true;
+            checkbox.parentElement.classList.add('completed');
+          }
+        });
+      }
+      
+      // Evento de envio do formulário
+      document.getElementById('taskForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Obtém os checkboxes marcados
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        
+        // Cria um array para armazenar as tarefas concluídas
+        var completedTasks = [];
+        
+        // Percorre os checkboxes marcados e adiciona o valor (ID da tarefa) ao array
+        checkboxes.forEach(function(checkbox) {
+          completedTasks.push(checkbox.value);
+        });
+        
+        // Atualiza o armazenamento local com as tarefas concluídas
+        localStorage.setItem('completedTasks', completedTasks.join(','));
+        
+        // Atualiza a classe CSS das tarefas concluídas
+        checkboxes.forEach(function(checkbox) {
+          checkbox.parentElement.classList.add('completed');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
